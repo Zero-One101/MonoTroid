@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MonoTroid
 {
+    internal delegate void KeyDownHandler(object sender, KeyDownEventArgs e);
+    internal delegate void KeyUpHandler(object sender, KeyUpEventArgs e);
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -27,7 +30,9 @@ namespace MonoTroid
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            graphics.PreferredBackBufferWidth = 256;
+            graphics.PreferredBackBufferHeight = 224;
+            graphics.ApplyChanges();
             base.Initialize();
         }
 

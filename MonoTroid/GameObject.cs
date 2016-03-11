@@ -12,7 +12,7 @@ namespace MonoTroid
         private EntityManager entityManager;
         public bool IsDead { get; private set; } = false;
 
-        protected GameObject(EntityManager entityManager)
+        public virtual void Initialise(EntityManager entityManager)
         {
             this.entityManager = entityManager;
         }
