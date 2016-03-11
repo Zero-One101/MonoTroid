@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -14,6 +15,10 @@ namespace MonoTroid
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private InputManager inputManager;
+        private ResourceManager resourceManager;
+        private EntityManager entityManager;
+        private LevelManager levelManager;
 
         public Game1()
         {
@@ -33,6 +38,11 @@ namespace MonoTroid
             graphics.PreferredBackBufferWidth = 256;
             graphics.PreferredBackBufferHeight = 224;
             graphics.ApplyChanges();
+
+            inputManager = new InputManager();
+            resourceManager = new ResourceManager(Content);
+            entityManager = new EntityManager(inputManager, resourceManager, levelManager);
+            entityManager.Initialise(GraphicsDevice.Viewport);
             base.Initialize();
         }
 

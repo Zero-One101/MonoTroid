@@ -17,16 +17,15 @@ namespace MonoTroid
         private readonly List<Keys> downKeys = new List<Keys>();
         private readonly List<Keys> upKeys = new List<Keys>();
         private Viewport viewport;
-        private InputManager inputManager;
+        private LevelManager levelManager;
         public ResourceManager ResourceManager { get; private set; }
 
-        public EntityManager(InputManager inputManager, ResourceManager resourceManager, List<GameObject> entitiesToAdd)
+        public EntityManager(InputManager inputManager, ResourceManager resourceManager, LevelManager levelManager)
         {
             ResourceManager = resourceManager;
-            this.entitiesToAdd = entitiesToAdd;
-            this.inputManager = inputManager;
-            this.inputManager.KeyDown += InputManager_KeyDown;
-            this.inputManager.KeyUp += InputManager_KeyUp;
+            inputManager.KeyDown += InputManager_KeyDown;
+            inputManager.KeyUp += InputManager_KeyUp;
+            this.levelManager = levelManager;
         }
 
         private void InputManager_KeyUp(object sender, KeyUpEventArgs e)
