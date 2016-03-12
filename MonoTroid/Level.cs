@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MonoTroid
 {
-    class Level
+    public class Level
     {
         public void Load(string level)
         {

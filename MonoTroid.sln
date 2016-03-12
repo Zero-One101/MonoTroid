@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoTroid", "MonoTroid\MonoTroid.csproj", "{31CB713C-4B8C-4D85-AD2F-6D8D01B4FEE3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor", "Editor\Editor.csproj", "{13D5BE12-4923-4AAC-8315-67C715CA7EE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -15,6 +17,10 @@ Global
 		{31CB713C-4B8C-4D85-AD2F-6D8D01B4FEE3}.Debug|x86.Build.0 = Debug|x86
 		{31CB713C-4B8C-4D85-AD2F-6D8D01B4FEE3}.Release|x86.ActiveCfg = Release|x86
 		{31CB713C-4B8C-4D85-AD2F-6D8D01B4FEE3}.Release|x86.Build.0 = Release|x86
+		{13D5BE12-4923-4AAC-8315-67C715CA7EE6}.Debug|x86.ActiveCfg = Debug|x86
+		{13D5BE12-4923-4AAC-8315-67C715CA7EE6}.Debug|x86.Build.0 = Debug|x86
+		{13D5BE12-4923-4AAC-8315-67C715CA7EE6}.Release|x86.ActiveCfg = Release|x86
+		{13D5BE12-4923-4AAC-8315-67C715CA7EE6}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
