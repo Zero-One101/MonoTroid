@@ -41,6 +41,16 @@ namespace MonoTroid
         public void Initialise(Viewport viewport)
         {
             this.viewport = viewport;
+            var samus = new Samus();
+            samus.Initialise(this, new Vector2(50, 50));
+            AddEntity(samus);
+
+            for (var i = 0; i < 16; i++)
+            {
+                var tile = new Tile();
+                tile.Initialise(this, new Vector2(i*16, 208));
+                AddEntity(tile);
+            }
         }
 
         public void AddEntity(GameObject entity)
@@ -63,6 +73,29 @@ namespace MonoTroid
 
             downKeys.Clear();
             upKeys.Clear();
+
+            CheckCollisions();
+        }
+
+        private void CheckCollisions()
+        {
+            // Godawful O(n^2) checking. Will be ripped out later
+            foreach (var first in entities)
+            {
+                foreach (var second in entities.Where(second => first.HitRect.Intersects(second.HitRect)))
+                {
+                    first.Collide(second);
+                    second.Collide(first);
+                }
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            foreach (var entity in entities)
+            {
+                entity.Draw(spriteBatch);
+            }
         }
 
         private void UpdateKeys()

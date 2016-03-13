@@ -54,7 +54,7 @@ namespace MonoTroid
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            spriteBatch.CreateWhiteTexture();
             // TODO: use this.Content to load your game content here
         }
 
@@ -78,7 +78,8 @@ namespace MonoTroid
                 Exit();
 
             // TODO: Add your update logic here
-
+            inputManager.Update();
+            entityManager.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -91,7 +92,9 @@ namespace MonoTroid
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+            entityManager.Draw(spriteBatch);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
