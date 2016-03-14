@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MonoTroid
 {
-    class EntityManager
+    public class EntityManager
     {
         public event KeyDownHandler KeyDown;
         public event KeyUpHandler KeyUp;

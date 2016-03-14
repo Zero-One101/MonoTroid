@@ -9,7 +9,7 @@ namespace MonoTroid
     /// <summary>
     /// Handles capturing and firing input events
     /// </summary>
-    class InputManager
+    public class InputManager
     {
         public event KeyDownHandler KeyDown;
         public event KeyUpHandler KeyUp;

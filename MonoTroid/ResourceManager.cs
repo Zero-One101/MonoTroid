@@ -10,7 +10,7 @@ namespace MonoTroid
     /// <summary>
     /// Handles the loading and unloading of assets
     /// </summary>
-    class ResourceManager
+    public class ResourceManager
     {
         private readonly ContentManager content;
         private readonly Dictionary<string, Texture2D> textures;

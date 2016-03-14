@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MonoTroid
 {
-    class LevelManager
+    public class LevelManager
     {
         private Level level;
     }

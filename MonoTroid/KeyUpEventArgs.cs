@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MonoTroid
 {
-    class KeyUpEventArgs : EventArgs
+    public class KeyUpEventArgs : EventArgs
     {
         public Keys Key { get; private set; }
 

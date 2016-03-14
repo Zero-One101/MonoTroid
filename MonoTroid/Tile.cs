@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoTroid
 {
-    class Tile : GameObject
+    public class Tile : GameObject
     {
         public override void Initialise(EntityManager entityManager, Vector2 spawnPosition)
         {

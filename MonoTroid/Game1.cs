@@ -5,8 +5,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MonoTroid
 {
-    internal delegate void KeyDownHandler(object sender, KeyDownEventArgs e);
-    internal delegate void KeyUpHandler(object sender, KeyUpEventArgs e);
+    public delegate void KeyDownHandler(object sender, KeyDownEventArgs e);
+    public delegate void KeyUpHandler(object sender, KeyUpEventArgs e);
 
     /// <summary>
     /// This is the main type for your game.

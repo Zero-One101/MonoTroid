@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoTroid
 {
-    abstract class GameObject
+    public abstract class GameObject
     {
         private EntityManager entityManager;
         public Rectangle HitRect { get; protected set; }

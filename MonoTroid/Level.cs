@@ -7,9 +7,11 @@ namespace MonoTroid
 {
     public class Level
     {
-        public void Load(string level)
+        private Tile[,] tiles;
+
+        public Level(Tile[,] tiles)
         {
-            
+            this.tiles = tiles;
         }
     }
 }
