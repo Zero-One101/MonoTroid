@@ -41,8 +41,9 @@ namespace MonoTroid
 
             inputManager = new InputManager();
             resourceManager = new ResourceManager(Content);
-            entityManager = new EntityManager(inputManager, resourceManager, levelManager);
-            entityManager.Initialise(GraphicsDevice.Viewport);
+            entityManager = new EntityManager(inputManager, resourceManager);
+            levelManager = new LevelManager(entityManager);
+            entityManager.Initialise(GraphicsDevice.Viewport, levelManager);
             base.Initialize();
         }
 

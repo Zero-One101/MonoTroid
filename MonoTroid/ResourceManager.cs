@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
@@ -55,6 +56,11 @@ namespace MonoTroid
             var font = content.Load<SpriteFont>(string.Format(@"Fonts\{0}", filename));
             fonts.Add(filename, font);
             return font;
+        }
+
+        public byte[] LoadLevelFile(string filename)
+        {
+            return File.ReadAllBytes(string.Format(@"Levels\{0}.map", filename));
         }
 
         /// <summary>

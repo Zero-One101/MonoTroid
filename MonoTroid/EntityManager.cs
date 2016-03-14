@@ -20,12 +20,11 @@ namespace MonoTroid
         private LevelManager levelManager;
         public ResourceManager ResourceManager { get; private set; }
 
-        public EntityManager(InputManager inputManager, ResourceManager resourceManager, LevelManager levelManager)
+        public EntityManager(InputManager inputManager, ResourceManager resourceManager)
         {
             ResourceManager = resourceManager;
             inputManager.KeyDown += InputManager_KeyDown;
             inputManager.KeyUp += InputManager_KeyUp;
-            this.levelManager = levelManager;
         }
 
         private void InputManager_KeyUp(object sender, KeyUpEventArgs e)
@@ -38,19 +37,15 @@ namespace MonoTroid
             downKeys.Add(e.Key);
         }
 
-        public void Initialise(Viewport viewport)
+        public void Initialise(Viewport viewport, LevelManager levelManager)
         {
             this.viewport = viewport;
+            this.levelManager = levelManager;
             var samus = new Samus();
             samus.Initialise(this, new Vector2(50, 50));
             AddEntity(samus);
 
-            for (var i = 0; i < 16; i++)
-            {
-                var tile = new Tile();
-                tile.Initialise(this, new Vector2(i*16, 208));
-                AddEntity(tile);
-            }
+            levelManager.LoadLevel("testLevel1");
         }
 
         public void AddEntity(GameObject entity)
@@ -74,7 +69,16 @@ namespace MonoTroid
             downKeys.Clear();
             upKeys.Clear();
 
+            CheckTileCollisions();
             CheckCollisions();
+        }
+
+        private void CheckTileCollisions()
+        {
+            foreach (var entity in entities)
+            {
+                levelManager.CheckCollisions(entity);
+            }
         }
 
         private void CheckCollisions()
@@ -96,6 +100,8 @@ namespace MonoTroid
             {
                 entity.Draw(spriteBatch);
             }
+
+            levelManager.Draw(spriteBatch);
         }
 
         private void UpdateKeys()

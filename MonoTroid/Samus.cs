@@ -12,7 +12,6 @@ namespace MonoTroid
     {
         private readonly List<Keys> downKeys = new List<Keys>();
         private readonly List<Keys> upKeys = new List<Keys>();
-        private bool hasJumped;
 
         public override void Initialise(EntityManager entityManager, Vector2 spawnPosition)
         {
@@ -86,35 +85,7 @@ namespace MonoTroid
 
         public override void Collide(GameObject other)
         {
-            if (other is Samus)
-            {
-                return;
-            }
-
-            ResolveTileCollision(other.HitRect);
-        }
-
-        private void ResolveTileCollision(Rectangle otherRect)
-        {
-            var oldPos = position - moveSpeed;
-            var oldYHitRect = new Rectangle((int)oldPos.X, (int)position.Y, (int)frameSize.X, (int)frameSize.Y);
-
-            if (oldYHitRect.Intersects(otherRect))
-            {
-                position.Y -= moveSpeed.Y;
-                moveSpeed.Y = 0;
-                hasJumped = false;
-            }
-
-            var oldXHitRect = new Rectangle((int)position.X, (int)oldPos.Y, (int)frameSize.X, (int)frameSize.Y);
-
-            if (oldXHitRect.Intersects(otherRect))
-            {
-                position.X -= moveSpeed.X;
-                moveSpeed.X = 0;
-            }
-
-            HitRect = new Rectangle((int)position.X, (int)position.Y, (int)frameSize.X, (int)frameSize.Y);
+            
         }
     }
 }

@@ -19,6 +19,7 @@ namespace MonoTroid
         protected float Gravity { get; } = 0.1f;
         protected float terminalVelocity;
         protected float jumpStrength;
+        protected bool hasJumped;
         public bool IsDead { get; private set; } = false;
 
         public virtual void Initialise(EntityManager entityManager, Vector2 spawnPosition)
@@ -31,5 +32,30 @@ namespace MonoTroid
         public abstract void Update(GameTime gameTime);
         public abstract void Draw(SpriteBatch spriteBatch);
         public abstract void Collide(GameObject other);
+
+        public virtual void ResolveTileCollision(Rectangle otherRect)
+        {
+            var oldPos = position - moveSpeed;
+            var oldYHitRect = new Rectangle((int)oldPos.X, (int)position.Y, (int)frameSize.X, (int)frameSize.Y);
+
+            if (oldYHitRect.Intersects(otherRect))
+            {
+                position.Y -= moveSpeed.Y;
+                moveSpeed.Y = 0;
+
+                // TODO: Check if the collision occured above the object, or else you can jump infinitely into the tile
+                hasJumped = false;
+            }
+
+            var oldXHitRect = new Rectangle((int)position.X, (int)oldPos.Y, (int)frameSize.X, (int)frameSize.Y);
+
+            if (oldXHitRect.Intersects(otherRect))
+            {
+                position.X -= moveSpeed.X;
+                moveSpeed.X = 0;
+            }
+
+            HitRect = new Rectangle((int)position.X, (int)position.Y, (int)frameSize.X, (int)frameSize.Y);
+        }
     }
 }
