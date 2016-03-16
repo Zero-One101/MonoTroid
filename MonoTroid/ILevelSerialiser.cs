@@ -12,7 +12,7 @@ namespace MonoTroid
         /// </summary>
         /// <param name="levelName">The name of the level to be loaded</param>
         /// <returns>The loaded Level object</returns>
-        Level LoadLevel(string levelName);
+        Level LoadLevel(EntityManager entityManager, string levelName);
 
         /// <summary>
         /// Saves a Level to a file of a given name
