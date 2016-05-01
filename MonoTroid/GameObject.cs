@@ -44,7 +44,11 @@ namespace MonoTroid
                 moveSpeed.Y = 0;
 
                 // TODO: Check if the collision occured above the object, or else you can jump infinitely into the tile
-                hasJumped = false;
+
+                if (HitRect.Top < otherRect.Top)
+                {
+                    hasJumped = false;
+                }
             }
 
             var oldXHitRect = new Rectangle((int)position.X, (int)oldPos.Y, (int)frameSize.X, (int)frameSize.Y);
