@@ -20,9 +20,10 @@ namespace MonoTroid
             entityManager.KeyUp += EntityManager_KeyUp;
             maxMoveSpeed = 5f;
             terminalVelocity = 5f;
-            frameSize = new Vector2(16, 32);
+            frameSize = new Vector2(16, 43);
             HitRect = new Rectangle((int)position.X, (int)position.Y, (int)frameSize.X, (int)frameSize.Y);
             jumpStrength = -3f;
+            texture = entityManager.ResourceManager.LoadTexture("SamusStand");
         }
 
         private void EntityManager_KeyUp(object sender, KeyUpEventArgs e)
@@ -79,7 +80,8 @@ namespace MonoTroid
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawFilledRectangle(new Rectangle((int)position.X, (int)position.Y, (int)frameSize.X, (int)frameSize.Y), Color.Red);
+            //spriteBatch.DrawFilledRectangle(new Rectangle((int)position.X, (int)position.Y, (int)frameSize.X, (int)frameSize.Y), Color.Red);
+            spriteBatch.Draw(texture, position, Color.White);
             spriteBatch.DrawRectangle(HitRect, Color.Green);
         }
 

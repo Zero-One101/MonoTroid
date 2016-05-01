@@ -36,7 +36,7 @@ namespace MonoTroid
                 return textures[filename];
             }
 
-            var texture = content.Load<Texture2D>(string.Format(@"Textures\{0}", filename));
+            var texture = content.Load<Texture2D>(string.Format(@"images\{0}", filename));
             textures.Add(filename, texture);
             return texture;
         }

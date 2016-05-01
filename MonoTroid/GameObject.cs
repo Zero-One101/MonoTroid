@@ -21,6 +21,7 @@ namespace MonoTroid
         protected float jumpStrength;
         protected bool hasJumped;
         public bool IsDead { get; private set; } = false;
+        protected Texture2D texture;
 
         public virtual void Initialise(EntityManager entityManager, Vector2 spawnPosition)
         {
@@ -43,8 +44,7 @@ namespace MonoTroid
                 position.Y -= moveSpeed.Y;
                 moveSpeed.Y = 0;
 
-                // TODO: Check if the collision occured above the object, or else you can jump infinitely into the tile
-
+                // If we hit our head off something, we shouldn't be able to jump again
                 if (HitRect.Top < otherRect.Top)
                 {
                     hasJumped = false;

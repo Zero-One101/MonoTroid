@@ -14,6 +14,7 @@ namespace MonoTroid
             base.Initialise(entityManager, spawnPosition);
             frameSize = new Vector2(16, 16);
             HitRect = new Rectangle((int)position.X, (int)position.Y, (int)frameSize.X, (int)frameSize.Y);
+            texture = entityManager.ResourceManager.LoadTexture("RBTile");
         }
 
         public override void Update(GameTime gameTime)
@@ -23,8 +24,8 @@ namespace MonoTroid
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawFilledRectangle(HitRect, Color.Purple);
-            spriteBatch.DrawRectangle(HitRect, Color.Green);
+            spriteBatch.Draw(texture, position, Color.White);
+            //spriteBatch.DrawRectangle(HitRect, Color.Green);
         }
 
         public override void Collide(GameObject other)
