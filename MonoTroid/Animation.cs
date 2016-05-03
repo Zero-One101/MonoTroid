@@ -10,15 +10,55 @@ namespace MonoTroid
 {
     class Animation
     {
+        /// <summary>
+        /// The size of each frame
+        /// </summary>
         private Point FrameSize { get; set; }
+
+        /// <summary>
+        /// The texture of the strip of animation
+        /// </summary>
         private Texture2D AnimStrip { get; set; }
+
+        /// <summary>
+        /// Whether or not the animation loops. If not, it will finish on the final frame.
+        /// </summary>
         private bool Looping { get; set; }
+
+        /// <summary>
+        /// The time each frame will be displayed for
+        /// </summary>
         private float FrameTime { get; set; }
+
+        /// <summary>
+        /// The total time the current frame has been displayed
+        /// </summary>
         private float CurrentFrameTime { get; set; }
+
+        /// <summary>
+        /// The number of frames in the animation
+        /// </summary>
         private int FrameCount { get; set; } = 0;
-        private int CurrentFrame { get; set; } = 0;
+
+        /// <summary>
+        /// The current frame of animation
+        /// </summary>
+        public int CurrentFrame { get; private set; } = 0;
+
+        /// <summary>
+        /// The target frame of the animation strip
+        /// </summary>
         private Rectangle SourceFrame { get; set; }
 
+        /// <summary>
+        /// Creates a new Animation
+        /// </summary>
+        /// <param name="entityManager">The world's entity manager</param>
+        /// <param name="animStrip">The filename of the animation strip</param>
+        /// <param name="looping">Whether or not the animation loops at the end</param>
+        /// <param name="frameCount">The number of frames in the animation</param>
+        /// <param name="frameTime">The time each frame will be displayed for</param>
+        /// <param name="frameOffset">Which frame of the animation to start at</param>
         public Animation(EntityManager entityManager, string animStrip, bool looping, int frameCount, float frameTime, int frameOffset)
         {
             AnimStrip = entityManager.ResourceManager.LoadTexture(animStrip);
@@ -39,7 +79,17 @@ namespace MonoTroid
                 CurrentFrameTime = 0;
                 CurrentFrame++;
 
-                CurrentFrame = CurrentFrame == FrameCount ? 0 : CurrentFrame;
+                if (CurrentFrame == FrameCount)
+                {
+                    if (Looping)
+                    {
+                        CurrentFrame = 0;
+                    }
+                    else
+                    {
+                        CurrentFrame--;
+                    }
+                }
             }
 
             UpdateSourceFrame();

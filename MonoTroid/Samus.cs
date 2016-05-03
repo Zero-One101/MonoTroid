@@ -12,7 +12,7 @@ namespace MonoTroid
     {
         private readonly List<Keys> downKeys = new List<Keys>();
         private readonly List<Keys> upKeys = new List<Keys>();
-        private Animation animation;
+        public Animation animation;
 
         public override void Initialise(EntityManager entityManager, Vector2 spawnPosition)
         {
