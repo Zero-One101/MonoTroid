@@ -13,7 +13,7 @@ namespace MonoTroid
         {
             base.Initialise(entityManager, spawnPosition);
             frameSize = new Vector2(16, 16);
-            HitRect = new Rectangle((int)position.X, (int)position.Y, (int)frameSize.X, (int)frameSize.Y);
+            HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
             texture = entityManager.ResourceManager.LoadTexture("RBTile");
         }
 
@@ -24,7 +24,7 @@ namespace MonoTroid
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, Color.White);
+            spriteBatch.Draw(texture, Position, Color.White);
             //spriteBatch.DrawRectangle(HitRect, Color.Green);
         }
 

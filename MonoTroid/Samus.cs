@@ -11,9 +11,9 @@ namespace MonoTroid
 {
     class Samus : GameObject
     {
-        private readonly List<Keys> downKeys = new List<Keys>();
-        private readonly List<Keys> upKeys = new List<Keys>();
-        public Animation animation;
+        public readonly List<Keys> downKeys = new List<Keys>();
+        public readonly List<Keys> upKeys = new List<Keys>();
+        public Animation Animation { get; set; }
         public SamusState state;
 
         public override void Initialise(EntityManager entityManager, Vector2 spawnPosition)
@@ -24,10 +24,12 @@ namespace MonoTroid
             maxMoveSpeed = 5f;
             terminalVelocity = 5f;
             frameSize = new Vector2(16, 43);
-            HitRect = new Rectangle((int)position.X, (int)position.Y, (int)frameSize.X, (int)frameSize.Y);
+            HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
             jumpStrength = -3f;
-            texture = entityManager.ResourceManager.LoadTexture("SamusStand");
-            animation = new Animation(entityManager, "SamusRunL", true, 10, 50f, 0);
+            state = new Standing();
+            state.Begin(this);
+            //texture = entityManager.ResourceManager.LoadTexture("SamusStand");
+            //Animation = new Animation(entityManager, "SamusRunL", true, 10, 50f, 0);
         }
 
         private void EntityManager_KeyUp(object sender, KeyUpEventArgs e)
@@ -44,8 +46,8 @@ namespace MonoTroid
         {
             ApplyGravity();
             HandleInput();
-            HitRect = new Rectangle((int)position.X, (int)position.Y, (int)frameSize.X, (int)frameSize.Y);
-            animation.Update(gameTime);
+            HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
+            state.Update(this, gameTime);
         }
 
         private void ApplyGravity()
@@ -80,14 +82,14 @@ namespace MonoTroid
             }
             upKeys.Clear();
 
-            position += moveSpeed;
+            Position += moveSpeed;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             //spriteBatch.DrawFilledRectangle(new Rectangle((int)position.X, (int)position.Y, (int)frameSize.X, (int)frameSize.Y), Color.Red);
             //spriteBatch.Draw(texture, position, Color.White);
-            animation.Draw(spriteBatch, position);
+            state.Draw(this, spriteBatch);
             spriteBatch.DrawRectangle(HitRect, Color.Green);
         }
 

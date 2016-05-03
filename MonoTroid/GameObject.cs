@@ -9,9 +9,9 @@ namespace MonoTroid
 {
     public abstract class GameObject
     {
-        private EntityManager entityManager;
+        public EntityManager EntityManager { get; set; }
         public Rectangle HitRect { get; protected set; }
-        protected Vector2 position;
+        public Vector2 Position { get; set; }
         protected Vector2 nextPosition;
         protected Vector2 moveSpeed;
         protected Vector2 frameSize;
@@ -25,9 +25,9 @@ namespace MonoTroid
 
         public virtual void Initialise(EntityManager entityManager, Vector2 spawnPosition)
         {
-            this.entityManager = entityManager;
-            position = spawnPosition;
-            nextPosition = position;
+            EntityManager = entityManager;
+            Position = spawnPosition;
+            nextPosition = Position;
         }
 
         public abstract void Update(GameTime gameTime);
@@ -36,12 +36,12 @@ namespace MonoTroid
 
         public virtual void ResolveTileCollision(Rectangle otherRect)
         {
-            var oldPos = position - moveSpeed;
-            var oldYHitRect = new Rectangle((int)oldPos.X, (int)position.Y, (int)frameSize.X, (int)frameSize.Y);
+            var oldPos = Position - moveSpeed;
+            var oldYHitRect = new Rectangle((int)oldPos.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
 
             if (oldYHitRect.Intersects(otherRect))
             {
-                position.Y -= moveSpeed.Y;
+                //Position.Y -= moveSpeed.Y;
                 moveSpeed.Y = 0;
 
                 // If we hit our head off something, we shouldn't be able to jump again
@@ -51,15 +51,15 @@ namespace MonoTroid
                 }
             }
 
-            var oldXHitRect = new Rectangle((int)position.X, (int)oldPos.Y, (int)frameSize.X, (int)frameSize.Y);
+            var oldXHitRect = new Rectangle((int)Position.X, (int)oldPos.Y, (int)frameSize.X, (int)frameSize.Y);
 
             if (oldXHitRect.Intersects(otherRect))
             {
-                position.X -= moveSpeed.X;
+                Position.X -= moveSpeed.X;
                 moveSpeed.X = 0;
             }
 
-            HitRect = new Rectangle((int)position.X, (int)position.Y, (int)frameSize.X, (int)frameSize.Y);
+            HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
         }
     }
 }
