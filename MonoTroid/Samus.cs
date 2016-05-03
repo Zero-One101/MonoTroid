@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoTroid.States.Player;
 
 namespace MonoTroid
 {
@@ -13,6 +14,7 @@ namespace MonoTroid
         private readonly List<Keys> downKeys = new List<Keys>();
         private readonly List<Keys> upKeys = new List<Keys>();
         public Animation animation;
+        public SamusState state;
 
         public override void Initialise(EntityManager entityManager, Vector2 spawnPosition)
         {

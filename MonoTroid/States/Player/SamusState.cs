@@ -8,21 +8,10 @@ using System.Threading.Tasks;
 
 namespace MonoTroid.States.Player
 {
-    class SamusState
+    abstract class SamusState
     {
-        public void Begin()
-        {
-
-        }
-
-        public void Update(Samus context, GameTime gameTime)
-        {
-
-        }
-
-        public void Draw(Samus context, SpriteBatch spriteBatch)
-        {
-
-        }
+        public abstract void Begin();
+        public abstract void Update(Samus context, GameTime gameTime);
+        public abstract void Draw(Samus context, SpriteBatch spriteBatch);
     }
 }
