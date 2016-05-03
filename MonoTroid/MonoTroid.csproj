@@ -42,6 +42,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Animation.cs" />
     <Compile Include="BinLevelSerialiser.cs" />
     <Compile Include="EntityManager.cs" />
     <Compile Include="ExtendedSpriteBatch.cs" />
