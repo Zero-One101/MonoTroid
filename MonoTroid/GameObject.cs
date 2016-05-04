@@ -9,6 +9,13 @@ namespace MonoTroid
 {
     public abstract class GameObject
     {
+        public enum EFacing
+        {
+            ELeft,
+            ERight
+        }
+
+        public EFacing Facing { get; set; }
         public EntityManager EntityManager { get; set; }
         public Rectangle HitRect { get; protected set; }
         public Vector2 Position { get; set; }

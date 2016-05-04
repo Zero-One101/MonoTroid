@@ -8,16 +8,19 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MonoTroid.States.Player
 {
-    class WalkL : SamusState
+    class Walk : SamusState
     {
         public override void Begin(Samus context)
         {
-            context.Animation = new Animation(context.EntityManager, "SamusRunL", true, 10, 50f, 0);
+            context.Animation = context.Facing == GameObject.EFacing.ELeft
+                ? new Animation(context.EntityManager, "Samus/SamusRunL", true, 10, 50f, 0)
+                : new Animation(context.EntityManager, "Samus/SamusRunR", true, 10, 50f, 0);
         }
 
         public override void Update(Samus context, GameTime gameTime)
         {
-            if (context.upKeys.Contains(Keys.Left))
+            if (context.upKeys.Contains(Keys.Left) && context.Facing == GameObject.EFacing.ELeft ||
+                context.upKeys.Contains(Keys.Right) && context.Facing == GameObject.EFacing.ERight)
             {
                 context.State = new Standing();
                 context.State.Begin(context);

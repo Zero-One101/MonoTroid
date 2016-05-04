@@ -13,14 +13,15 @@ namespace MonoTroid.States.Player
     {
         public override void Begin(Samus context)
         {
-            context.Animation = new Animation(context.EntityManager, "SamusStand", true, 1, 1.0f, 0);
+            context.Animation = new Animation(context.EntityManager, "Samus/SamusStand", true, 1, 1.0f, 0);
         }
 
         public override void Update(Samus context, GameTime gameTime)
         {
-            if (context.downKeys.Contains(Keys.Left))
+            if ((context.downKeys.Contains(Keys.Left) && !context.downKeys.Contains(Keys.Right)) ||
+                (context.downKeys.Contains(Keys.Right) && !context.downKeys.Contains(Keys.Left)))
             {
-                context.State = new WalkL();
+                context.State = new Walk();
                 context.State.Begin(context);
             }
 

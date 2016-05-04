@@ -21,15 +21,14 @@ namespace MonoTroid
             base.Initialise(entityManager, spawnPosition);
             entityManager.KeyDown += EntityManager_KeyDown;
             entityManager.KeyUp += EntityManager_KeyUp;
-            maxMoveSpeed = 5f;
+            maxMoveSpeed = 3f;
             terminalVelocity = 5f;
             frameSize = new Vector2(16, 43);
             HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
             jumpStrength = -3f;
+            Facing = EFacing.ELeft;
             State = new Standing();
             State.Begin(this);
-            //texture = entityManager.ResourceManager.LoadTexture("SamusStand");
-            //Animation = new Animation(entityManager, "SamusRunL", true, 10, 50f, 0);
         }
 
         private void EntityManager_KeyUp(object sender, KeyUpEventArgs e)
@@ -61,10 +60,12 @@ namespace MonoTroid
         {
             if (downKeys.Contains(Keys.Left))
             {
+                Facing = EFacing.ELeft;
                 moveSpeed.X = -maxMoveSpeed;
             }
             if (downKeys.Contains(Keys.Right))
             {
+                Facing = EFacing.ERight;
                 moveSpeed.X = maxMoveSpeed;
             }
             if (downKeys.Contains(Keys.X))
