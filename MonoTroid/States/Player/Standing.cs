@@ -20,6 +20,15 @@ namespace MonoTroid.States.Player
 
         protected override void HandleInput(Samus context, GameTime gameTime)
         {
+            if (context.downKeys.Contains(Keys.X))
+            {
+                if (!context.hasJumped)
+                {
+                    context.MoveSpeed = new Vector2(context.MoveSpeed.X, context.MoveSpeed.Y + context.jumpStrength);
+                    context.hasJumped = true;
+                }
+            }
+
             if ((context.downKeys.Contains(Keys.Left) && !context.downKeys.Contains(Keys.Right)) ||
                 (context.downKeys.Contains(Keys.Right) && !context.downKeys.Contains(Keys.Left)))
             {

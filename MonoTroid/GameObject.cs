@@ -56,7 +56,7 @@ namespace MonoTroid
             if (oldYHitRect.Intersects(otherRect))
             {
                 //Position.Y -= moveSpeed.Y;
-                Position = new Vector2(Position.X, Position.Y - MoveSpeed.Y);
+                Position = new Vector2(Position.X, oldPos.Y);
                 MoveSpeed = new Vector2(MoveSpeed.X, 0);
 
                 // If we hit our head off something, we shouldn't be able to jump again
@@ -71,7 +71,7 @@ namespace MonoTroid
             if (oldXHitRect.Intersects(otherRect))
             {
                 //Position.X -= moveSpeed.X;
-                Position = new Vector2(Position.X - MoveSpeed.X, Position.Y);
+                Position = new Vector2(oldPos.X, Position.Y);
                 MoveSpeed = new Vector2(0, MoveSpeed.Y);
             }
 
