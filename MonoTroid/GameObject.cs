@@ -61,7 +61,7 @@ namespace MonoTroid
         /// <summary>
         /// How fast the GameObject will fall due to gravity
         /// </summary>
-        protected float Gravity { get; } = 0.1f;
+        public float Gravity { get; } = 0.1f;
 
         /// <summary>
         /// The maximum speed the GameObject can achieve when falling

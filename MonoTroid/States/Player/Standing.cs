@@ -27,7 +27,7 @@ namespace MonoTroid.States.Player
                     ? GameObject.EFacing.ERight
                     : GameObject.EFacing.ELeft;
 
-                context.State = new Walk();
+                context.State = new Walking();
                 context.State.Begin(context);
             }
 

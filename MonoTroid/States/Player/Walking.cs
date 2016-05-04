@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace MonoTroid.States.Player
 {
-    class Walk : OnGround
+    class Walking : OnGround
     {
         public override void Begin(Samus context)
         {
@@ -21,24 +16,24 @@ namespace MonoTroid.States.Player
         {
             if (context.downKeys.Contains(Keys.Left))
             {
-                context.Facing = GameObject.EFacing.ELeft;
-                context.MoveSpeed = new Vector2(-context.maxMoveSpeed, context.MoveSpeed.Y);
-
                 if (context.Facing == GameObject.EFacing.ERight)
                 {
-                    context.Animation = new Animation(context.EntityManager, "SamusRunL", true, 10, 50f, 0);
+                    context.Animation = new Animation(context.EntityManager, "Samus/RunL", true, 10, 50f, 0);
                 }
+
+                context.Facing = GameObject.EFacing.ELeft;
+                context.MoveSpeed = new Vector2(-context.maxMoveSpeed, context.MoveSpeed.Y);
             }
 
             if (context.downKeys.Contains(Keys.Right))
             {
-                context.Facing = GameObject.EFacing.ERight;
-                context.MoveSpeed = new Vector2(context.maxMoveSpeed, context.MoveSpeed.Y);
-
                 if (context.Facing == GameObject.EFacing.ELeft)
                 {
-                    context.Animation = new Animation(context.EntityManager, "SamusRunR", true, 10, 50f, 0);
+                    context.Animation = new Animation(context.EntityManager, "Samus/RunR", true, 10, 50f, 0);
                 }
+
+                context.Facing = GameObject.EFacing.ERight;
+                context.MoveSpeed = new Vector2(context.maxMoveSpeed, context.MoveSpeed.Y);
             }
 
             // If both movement keys are held, cancel movement and go to a Standing state
