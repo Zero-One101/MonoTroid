@@ -8,6 +8,9 @@ namespace MonoTroid
 {
     public class Level
     {
+        /// <summary>
+        /// The 2D tile array that defines the structure of the level
+        /// </summary>
         public Tile[,] Tiles { get; private set; }
 
         public Level(Tile[,] tiles)

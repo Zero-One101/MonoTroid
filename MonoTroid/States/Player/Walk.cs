@@ -19,35 +19,34 @@ namespace MonoTroid.States.Player
 
         protected override void HandleInput(Samus context, GameTime gameTime)
         {
+            if (context.downKeys.Contains(Keys.Left))
+            {
+                context.Facing = GameObject.EFacing.ELeft;
+                context.MoveSpeed = new Vector2(-context.maxMoveSpeed, context.MoveSpeed.Y);
+
+                if (context.Facing == GameObject.EFacing.ERight)
+                {
+                    context.Animation = new Animation(context.EntityManager, "SamusRunL", true, 10, 50f, 0);
+                }
+            }
+
+            if (context.downKeys.Contains(Keys.Right))
+            {
+                context.Facing = GameObject.EFacing.ERight;
+                context.MoveSpeed = new Vector2(context.maxMoveSpeed, context.MoveSpeed.Y);
+
+                if (context.Facing == GameObject.EFacing.ELeft)
+                {
+                    context.Animation = new Animation(context.EntityManager, "SamusRunR", true, 10, 50f, 0);
+                }
+            }
+
+            // If both movement keys are held, cancel movement and go to a Standing state
             if (context.downKeys.Contains(Keys.Left) && context.downKeys.Contains(Keys.Right))
             {
                 context.MoveSpeed = new Vector2(0, context.MoveSpeed.Y);
                 context.State = new Standing();
                 context.State.Begin(context);
-            }
-            else
-            {
-                if (context.downKeys.Contains(Keys.Left))
-                {
-                    context.Facing = GameObject.EFacing.ELeft;
-                    context.MoveSpeed = new Vector2(-context.maxMoveSpeed, context.MoveSpeed.Y);
-
-                    if (context.Facing == GameObject.EFacing.ERight)
-                    {
-                        context.Animation = new Animation(context.EntityManager, "SamusRunL", true, 10, 50f, 0);
-                    }
-                }
-
-                if (context.downKeys.Contains(Keys.Right))
-                {
-                    context.Facing = GameObject.EFacing.ERight;
-                    context.MoveSpeed = new Vector2(context.maxMoveSpeed, context.MoveSpeed.Y);
-
-                    if (context.Facing == GameObject.EFacing.ELeft)
-                    {
-                        context.Animation = new Animation(context.EntityManager, "SamusRunR", true, 10, 50f, 0);
-                    }
-                }
             }
 
             if (context.upKeys.Contains(Keys.Left) || context.upKeys.Contains(Keys.Right))

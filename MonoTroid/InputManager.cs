@@ -18,6 +18,9 @@ namespace MonoTroid
         private readonly List<Keys> upKeys = new List<Keys>();
         private readonly List<Keys> prevDownKeys = new List<Keys>();
 
+        /// <summary>
+        /// Grabs the current keyboard state, updates the list of up and down keys, then fires Key events
+        /// </summary>
         public void Update()
         {
             keyboardState = Keyboard.GetState();

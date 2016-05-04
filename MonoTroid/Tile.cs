@@ -25,7 +25,6 @@ namespace MonoTroid
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, Position, Color.White);
-            //spriteBatch.DrawRectangle(HitRect, Color.Green);
         }
 
         public override void Collide(GameObject other)

@@ -60,7 +60,7 @@ namespace MonoTroid
         {
             //spriteBatch.DrawFilledRectangle(new Rectangle((int)position.X, (int)position.Y, (int)frameSize.X, (int)frameSize.Y), Color.Red);
             //spriteBatch.Draw(texture, position, Color.White);
-            State.Draw(this, spriteBatch);
+            Animation.Draw(spriteBatch, Position);
 
             spriteBatch.DrawRectangle(HitRect, Color.Green);
         }

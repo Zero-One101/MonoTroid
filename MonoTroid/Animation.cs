@@ -70,6 +70,10 @@ namespace MonoTroid
             UpdateSourceFrame();
         }
 
+        /// <summary>
+        /// Updates the animation
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
             CurrentFrameTime += gameTime.ElapsedGameTime.Milliseconds;
@@ -100,6 +104,11 @@ namespace MonoTroid
             SourceFrame = new Rectangle(new Point(CurrentFrame * FrameSize.X, 0), FrameSize);
         }
 
+        /// <summary>
+        /// Draws the current frame of animation at the specified position
+        /// </summary>
+        /// <param name="spriteBatch">The SpriteBatch of the graphics device</param>
+        /// <param name="drawPos">The position at which to draw the frame</param>
         public void Draw(SpriteBatch spriteBatch, Vector2 drawPos)
         {
             spriteBatch.Draw(AnimStrip, drawPos, SourceFrame, Color.White);

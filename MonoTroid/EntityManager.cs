@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MonoTroid
 {
+    /// <summary>
+    /// Handles adding, updating, drawing and removing entities. The gateway through which all entities access the world, other managers and other entities.
+    /// </summary>
     public class EntityManager
     {
         public event KeyDownHandler KeyDown;
@@ -48,11 +51,19 @@ namespace MonoTroid
             levelManager.LoadLevel("testLevel1");
         }
 
+        /// <summary>
+        /// Adds the specified GameObject to the list of entities.
+        /// </summary>
+        /// <param name="entity"></param>
         public void AddEntity(GameObject entity)
         {
             entitiesToAdd.Add(entity);
         }
 
+        /// <summary>
+        /// Iterates through each entity and updates them. Removes dead entities from the list, then performs collision checking.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
             entities.AddRange(entitiesToAdd);
@@ -94,6 +105,10 @@ namespace MonoTroid
             }
         }
 
+        /// <summary>
+        /// Iterates through each entity, draws them, then draws the level
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (var entity in entities)
@@ -101,6 +116,7 @@ namespace MonoTroid
                 entity.Draw(spriteBatch);
             }
 
+            // TODO: This will need to be done one layer at a time, to allow for a foreground layer
             levelManager.Draw(spriteBatch);
         }
 

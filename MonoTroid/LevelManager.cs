@@ -18,6 +18,11 @@ namespace MonoTroid
             this.entityManager = entityManager;
         }
 
+        /// <summary>
+        /// Attempts to load the specified level
+        /// </summary>
+        /// <param name="levelName">The name of hte level to load</param>
+        /// <returns>True if loaded successfully, else false</returns>
         public bool LoadLevel(string levelName)
         {
             ILevelSerialiser levelSerialiser = new BinLevelSerialiser();
@@ -37,6 +42,10 @@ namespace MonoTroid
             level.Draw(spriteBatch);
         }
 
+        /// <summary>
+        /// Checks for collisions between GameObjects and level tiles
+        /// </summary>
+        /// <param name="entity"></param>
         public void CheckCollisions(GameObject entity)
         {
             foreach (var tile in level.Tiles)
