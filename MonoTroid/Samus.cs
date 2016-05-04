@@ -44,9 +44,9 @@ namespace MonoTroid
         public override void Update(GameTime gameTime)
         {
             ApplyGravity();
+            State.Update(this, gameTime);
             Position += MoveSpeed;
             HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
-            State.Update(this, gameTime);
             ClearKeys();
         }
 

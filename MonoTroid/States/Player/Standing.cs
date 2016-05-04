@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MonoTroid.States.Player
 {
-    class Standing : SamusState
+    class Standing : OnGround
     {
         public override void Begin(Samus context)
         {
@@ -20,15 +20,6 @@ namespace MonoTroid.States.Player
 
         protected override void HandleInput(Samus context, GameTime gameTime)
         {
-            if (context.downKeys.Contains(Keys.X))
-            {
-                if (!context.hasJumped)
-                {
-                    context.MoveSpeed = new Vector2(context.MoveSpeed.X, context.MoveSpeed.Y + context.jumpStrength);
-                    context.hasJumped = true;
-                }
-            }
-
             if ((context.downKeys.Contains(Keys.Left) && !context.downKeys.Contains(Keys.Right)) ||
                 (context.downKeys.Contains(Keys.Right) && !context.downKeys.Contains(Keys.Left)))
             {
@@ -39,6 +30,8 @@ namespace MonoTroid.States.Player
                 context.State = new Walk();
                 context.State.Begin(context);
             }
+
+            base.HandleInput(context, gameTime);
         }
     }
 }
