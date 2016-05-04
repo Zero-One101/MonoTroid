@@ -14,8 +14,8 @@ namespace MonoTroid.States.Player
         public override void Begin(Samus context)
         {
             context.Animation = context.Facing == GameObject.EFacing.ELeft
-                ? new Animation(context.EntityManager, "Samus/StandL", true, 1, 1f, 0)
-                : new Animation(context.EntityManager, "Samus/StandR", true, 1, 1f, 0);
+                ? new Animation(context.EntityManager, AppData.SamusStandL, true, 1, 1f, 0)
+                : new Animation(context.EntityManager, AppData.SamusStandR, true, 1, 1f, 0);
         }
 
         protected override void HandleInput(Samus context, GameTime gameTime)

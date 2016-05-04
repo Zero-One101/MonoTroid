@@ -8,8 +8,8 @@ namespace MonoTroid.States.Player
         public override void Begin(Samus context)
         {
             context.Animation = context.Facing == GameObject.EFacing.ELeft
-                ? new Animation(context.EntityManager, "Samus/RunL", true, 10, 50f, 0)
-                : new Animation(context.EntityManager, "Samus/RunR", true, 10, 50f, 0);
+                ? new Animation(context.EntityManager, AppData.SamusRunL, true, 10, 50f, 0)
+                : new Animation(context.EntityManager, AppData.SamusRunR, true, 10, 50f, 0);
         }
 
         protected override void HandleInput(Samus context, GameTime gameTime)
@@ -18,7 +18,7 @@ namespace MonoTroid.States.Player
             {
                 if (context.Facing == GameObject.EFacing.ERight)
                 {
-                    context.Animation = new Animation(context.EntityManager, "Samus/RunL", true, 10, 50f, 0);
+                    context.Animation = new Animation(context.EntityManager, AppData.SamusRunL, true, 10, 50f, 0);
                 }
 
                 context.Facing = GameObject.EFacing.ELeft;
@@ -29,7 +29,7 @@ namespace MonoTroid.States.Player
             {
                 if (context.Facing == GameObject.EFacing.ELeft)
                 {
-                    context.Animation = new Animation(context.EntityManager, "Samus/RunR", true, 10, 50f, 0);
+                    context.Animation = new Animation(context.EntityManager, AppData.SamusRunR, true, 10, 50f, 0);
                 }
 
                 context.Facing = GameObject.EFacing.ERight;

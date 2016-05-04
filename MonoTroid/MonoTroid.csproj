@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Animation.cs" />
+    <Compile Include="AppData.cs" />
     <Compile Include="BinLevelSerialiser.cs" />
     <Compile Include="EntityManager.cs" />
     <Compile Include="ExtendedSpriteBatch.cs" />
