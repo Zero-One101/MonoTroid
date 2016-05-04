@@ -20,8 +20,8 @@ namespace MonoTroid.States.Player
         {
             if (context.downKeys.Contains(Keys.Left))
             {
-                context.state = new WalkL();
-                context.state.Begin(context);
+                context.State = new WalkL();
+                context.State.Begin(context);
             }
 
             base.Update(context, gameTime);

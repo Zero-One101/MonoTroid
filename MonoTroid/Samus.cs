@@ -14,7 +14,7 @@ namespace MonoTroid
         public readonly List<Keys> downKeys = new List<Keys>();
         public readonly List<Keys> upKeys = new List<Keys>();
         public Animation Animation { get; set; }
-        public SamusState state;
+        public SamusState State { get; set; }
 
         public override void Initialise(EntityManager entityManager, Vector2 spawnPosition)
         {
@@ -26,8 +26,8 @@ namespace MonoTroid
             frameSize = new Vector2(16, 43);
             HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
             jumpStrength = -3f;
-            state = new Standing();
-            state.Begin(this);
+            State = new Standing();
+            State.Begin(this);
             //texture = entityManager.ResourceManager.LoadTexture("SamusStand");
             //Animation = new Animation(entityManager, "SamusRunL", true, 10, 50f, 0);
         }
@@ -47,7 +47,7 @@ namespace MonoTroid
             ApplyGravity();
             HandleInput();
             HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
-            state.Update(this, gameTime);
+            State.Update(this, gameTime);
             ClearKeys();
         }
 
@@ -94,7 +94,7 @@ namespace MonoTroid
         {
             //spriteBatch.DrawFilledRectangle(new Rectangle((int)position.X, (int)position.Y, (int)frameSize.X, (int)frameSize.Y), Color.Red);
             //spriteBatch.Draw(texture, position, Color.White);
-            state.Draw(this, spriteBatch);
+            State.Draw(this, spriteBatch);
             spriteBatch.DrawRectangle(HitRect, Color.Green);
         }
 

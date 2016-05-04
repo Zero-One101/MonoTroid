@@ -19,8 +19,8 @@ namespace MonoTroid.States.Player
         {
             if (context.upKeys.Contains(Keys.Left))
             {
-                context.state = new Standing();
-                context.state.Begin(context);
+                context.State = new Standing();
+                context.State.Begin(context);
             }
 
             base.Update(context, gameTime);
