@@ -17,12 +17,12 @@ namespace MonoTroid.States.Player
 
         public override void Draw(Samus context, SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public override void Update(Samus context, GameTime gameTime)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }
