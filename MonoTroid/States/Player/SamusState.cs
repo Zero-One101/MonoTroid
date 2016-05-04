@@ -14,8 +14,11 @@ namespace MonoTroid.States.Player
 
         public virtual void Update(Samus context, GameTime gameTime)
         {
+            HandleInput(context, gameTime);
             context.Animation.Update(gameTime);
         }
+
+        protected abstract void HandleInput(Samus context, GameTime gameTime);
 
         public virtual void Draw(Samus context, SpriteBatch spriteBatch)
         {

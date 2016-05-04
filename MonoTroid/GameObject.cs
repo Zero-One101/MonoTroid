@@ -16,17 +16,17 @@ namespace MonoTroid
         }
 
         public EFacing Facing { get; set; }
-        public EntityManager EntityManager { get; set; }
+        public EntityManager EntityManager { get; private set; }
         public Rectangle HitRect { get; protected set; }
         public Vector2 Position { get; set; }
         protected Vector2 nextPosition;
-        protected Vector2 moveSpeed;
+        public Vector2 MoveSpeed { get; set; }
         protected Vector2 frameSize;
-        protected float maxMoveSpeed;
+        public float maxMoveSpeed;
         protected float Gravity { get; } = 0.1f;
         protected float terminalVelocity;
-        protected float jumpStrength;
-        protected bool hasJumped;
+        public float jumpStrength;
+        public bool hasJumped;
         public bool IsDead { get; private set; } = false;
         protected Texture2D texture;
 
@@ -41,16 +41,23 @@ namespace MonoTroid
         public abstract void Draw(SpriteBatch spriteBatch);
         public abstract void Collide(GameObject other);
 
+        protected virtual void ApplyGravity()
+        {
+            MoveSpeed = MoveSpeed.Y + Gravity < terminalVelocity
+                ? new Vector2(MoveSpeed.X, MoveSpeed.Y + Gravity)
+                : new Vector2(MoveSpeed.X, terminalVelocity);
+        }
+
         public virtual void ResolveTileCollision(Rectangle otherRect)
         {
-            var oldPos = Position - moveSpeed;
+            var oldPos = Position - MoveSpeed;
             var oldYHitRect = new Rectangle((int)oldPos.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
 
             if (oldYHitRect.Intersects(otherRect))
             {
                 //Position.Y -= moveSpeed.Y;
-                Position = new Vector2(Position.X, Position.Y - moveSpeed.Y);
-                moveSpeed.Y = 0;
+                Position = new Vector2(Position.X, Position.Y - MoveSpeed.Y);
+                MoveSpeed = new Vector2(MoveSpeed.X, 0);
 
                 // If we hit our head off something, we shouldn't be able to jump again
                 if (HitRect.Top < otherRect.Top)
@@ -64,8 +71,8 @@ namespace MonoTroid
             if (oldXHitRect.Intersects(otherRect))
             {
                 //Position.X -= moveSpeed.X;
-                Position = new Vector2(Position.X - moveSpeed.X, Position.Y);
-                moveSpeed.X = 0;
+                Position = new Vector2(Position.X - MoveSpeed.X, Position.Y);
+                MoveSpeed = new Vector2(0, MoveSpeed.Y);
             }
 
             HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);

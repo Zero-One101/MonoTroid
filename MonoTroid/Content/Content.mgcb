@@ -24,7 +24,7 @@
 /processorParam:TextureFormat=Color
 /build:images/RBTile.png
 
-#begin images/Samus/SamusRunL.png
+#begin images/Samus/RunL.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -33,9 +33,9 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
-/build:images/Samus/SamusRunL.png
+/build:images/Samus/RunL.png
 
-#begin images/Samus/SamusRunR.png
+#begin images/Samus/RunR.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -44,9 +44,9 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
-/build:images/Samus/SamusRunR.png
+/build:images/Samus/RunR.png
 
-#begin images/Samus/SamusStand.png
+#begin images/Samus/StandL.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -55,5 +55,16 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
-/build:images/Samus/SamusStand.png
+/build:images/Samus/StandL.png
+
+#begin images/Samus/StandR.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:images/Samus/StandR.png
 

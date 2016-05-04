@@ -44,45 +44,10 @@ namespace MonoTroid
         public override void Update(GameTime gameTime)
         {
             ApplyGravity();
-            HandleInput();
+            Position += MoveSpeed;
             HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
             State.Update(this, gameTime);
             ClearKeys();
-        }
-
-        private void ApplyGravity()
-        {
-            moveSpeed.Y += Gravity;
-            moveSpeed.Y = moveSpeed.Y > terminalVelocity ? terminalVelocity : moveSpeed.Y;
-        }
-
-        private void HandleInput()
-        {
-            if (downKeys.Contains(Keys.Left))
-            {
-                Facing = EFacing.ELeft;
-                moveSpeed.X = -maxMoveSpeed;
-            }
-            if (downKeys.Contains(Keys.Right))
-            {
-                Facing = EFacing.ERight;
-                moveSpeed.X = maxMoveSpeed;
-            }
-            if (downKeys.Contains(Keys.X))
-            {
-                if (!hasJumped)
-                {
-                    moveSpeed.Y += jumpStrength;
-                    hasJumped = true;
-                }
-            }
-
-            if (upKeys.Contains(Keys.Left) || upKeys.Contains(Keys.Right))
-            {
-                moveSpeed.X = 0;
-            }
-
-            Position += moveSpeed;
         }
 
         private void ClearKeys()
