@@ -8,9 +8,16 @@ namespace MonoTroid
 {
     public static class AppData
     {
-        public static string SamusRunL = @"Samus\RunL";
-        public static string SamusRunR = @"Samus\RunR";
-        public static string SamusStandL = @"Samus\StandL";
-        public static string SamusStandR = @"Samus\StandR";
+        // Graphics
+        private const string samusDir = @"Samus\";
+
+        public const string SamusRunL = samusDir + "RunL";
+        public const string SamusRunR = samusDir + "RunR";
+        public const string SamusStandL = samusDir + "StandL";
+        public const string SamusStandR = samusDir + "StandR";
+        public const string Spawn = samusDir + "Spawn";
+
+        // Music
+        public const string SpawnMusic = "Spawning";
     }
 }

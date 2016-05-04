@@ -65,6 +65,7 @@
     <Compile Include="States\Player\Landing.cs" />
     <Compile Include="States\Player\OnGround.cs" />
     <Compile Include="States\Player\SamusState.cs" />
+    <Compile Include="States\Player\Spawning.cs" />
     <Compile Include="States\Player\Walking.cs" />
     <Compile Include="States\Player\Standing.cs" />
     <Compile Include="Tile.cs" />

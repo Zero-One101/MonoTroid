@@ -27,7 +27,7 @@ namespace MonoTroid
             HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
             jumpStrength = -3f;
             Facing = EFacing.ELeft;
-            State = new Standing();
+            State = new Spawning();
             State.Begin(this);
         }
 

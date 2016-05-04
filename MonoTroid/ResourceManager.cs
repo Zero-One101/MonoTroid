@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace MonoTroid
 {
@@ -16,12 +17,14 @@ namespace MonoTroid
         private readonly ContentManager content;
         private readonly Dictionary<string, Texture2D> textures;
         private readonly Dictionary<string, SpriteFont> fonts;
+        private readonly Dictionary<string, Song> songs; 
 
         public ResourceManager(ContentManager content)
         {
             this.content = content;
             textures = new Dictionary<string, Texture2D>();
             fonts = new Dictionary<string, SpriteFont>();
+            songs = new Dictionary<string, Song>();
         }
 
         /// <summary>
@@ -58,6 +61,18 @@ namespace MonoTroid
             return font;
         }
 
+        public Song LoadSong(string filename)
+        {
+            if (songs.ContainsKey(filename))
+            {
+                return songs[filename];
+            }
+
+            var song = content.Load<Song>(string.Format(@"Audio\Music\{0}", filename));
+            songs.Add(filename, song);
+            return song;
+        }
+
         public byte[] LoadLevelFile(string filename)
         {
             return File.ReadAllBytes(string.Format(@"Levels\{0}.map", filename));
@@ -70,6 +85,7 @@ namespace MonoTroid
         {
             textures.Clear();
             fonts.Clear();
+            songs.Clear();
         }
     }
 }
