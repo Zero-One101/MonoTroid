@@ -11,7 +11,11 @@ namespace MonoTroid.States.Player
     abstract class SamusState
     {
         public abstract void Begin(Samus context);
-        public abstract void Update(Samus context, GameTime gameTime);
+
+        public virtual void Update(Samus context, GameTime gameTime)
+        {
+            context.Animation.Update(gameTime);
+        }
 
         public virtual void Draw(Samus context, SpriteBatch spriteBatch)
         {

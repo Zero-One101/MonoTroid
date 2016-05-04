@@ -59,6 +59,7 @@
     <Compile Include="ResourceManager.cs" />
     <Compile Include="Samus.cs" />
     <Compile Include="States\Player\SamusState.cs" />
+    <Compile Include="States\Player\WalkL.cs" />
     <Compile Include="States\Player\Standing.cs" />
     <Compile Include="Tile.cs" />
   </ItemGroup>

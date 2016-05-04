@@ -48,6 +48,7 @@ namespace MonoTroid
             HandleInput();
             HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
             state.Update(this, gameTime);
+            ClearKeys();
         }
 
         private void ApplyGravity()
@@ -74,15 +75,19 @@ namespace MonoTroid
                     hasJumped = true;
                 }
             }
-            downKeys.Clear();
 
             if (upKeys.Contains(Keys.Left) || upKeys.Contains(Keys.Right))
             {
                 moveSpeed.X = 0;
             }
-            upKeys.Clear();
 
             Position += moveSpeed;
+        }
+
+        private void ClearKeys()
+        {
+            downKeys.Clear();
+            upKeys.Clear();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
