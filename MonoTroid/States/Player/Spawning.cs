@@ -11,7 +11,7 @@ namespace MonoTroid.States.Player
 {
     class Spawning : SamusState
     {
-        private int waitTime = 7000;
+        private const int waitTime = 7000;
         private int currentWaitTime;
 
         public override void Begin(Samus context)

@@ -51,6 +51,12 @@ namespace MonoTroid.States.Player
 
             if (context.downKeys.Contains(Keys.Right))
             {
+                if (context.Facing == GameObject.EFacing.ELeft)
+                {
+                    // TODO: Switch to opposite animation
+                }
+
+                context.Facing = GameObject.EFacing.ERight;
                 context.MoveSpeed = new Vector2(context.maxMoveSpeed, context.MoveSpeed.Y);
             }
 
