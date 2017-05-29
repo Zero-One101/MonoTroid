@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace MonoTroid
+namespace MonoTroid.Managers
 {
     public class LevelManager
     {
-        private Level level;
+        public Level Level { get; private set; }
         private readonly EntityManager entityManager;
 
         public LevelManager(EntityManager entityManager)
@@ -28,7 +22,7 @@ namespace MonoTroid
             ILevelSerialiser levelSerialiser = new BinLevelSerialiser();
             try
             {
-                level = levelSerialiser.LoadLevel(entityManager, levelName);
+                Level = levelSerialiser.LoadLevel(entityManager, levelName);
                 return true;
             }
             catch
@@ -39,7 +33,7 @@ namespace MonoTroid
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            level.Draw(spriteBatch);
+            Level.Draw(spriteBatch);
         }
 
         /// <summary>
@@ -48,14 +42,12 @@ namespace MonoTroid
         /// <param name="entity"></param>
         public void CheckCollisions(GameObject entity)
         {
-            foreach (var tile in level.Tiles)
+            foreach (var tile in Level.Tiles)
             {
-                if (tile != null)
+                if (tile == null) continue;
+                if (tile.HitRect.Intersects(entity.HitRect))
                 {
-                    if (tile.HitRect.Intersects(entity.HitRect))
-                    {
-                        entity.ResolveTileCollision(tile.HitRect);
-                    }
+                    entity.ResolveTileCollision(tile.HitRect);
                 }
             }
         }

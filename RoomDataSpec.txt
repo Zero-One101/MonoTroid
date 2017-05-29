@@ -1,0 +1,6 @@
+Header:
+ScreenX - 1 byte
+ScreenY - 1 byte
+
+Room Data:
+Foreground Layer - (ScreenX * 16) + (ScreenY * 14) bytes

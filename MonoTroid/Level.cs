@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoTroid
 {
     public class Level
     {
+        public LevelHeader Header { get; private set; }
+
         /// <summary>
         /// The 2D tile array that defines the structure of the level
         /// </summary>
@@ -25,5 +28,15 @@ namespace MonoTroid
                 tile?.Draw(spriteBatch);
             }
         }
+
+        public void SetHeader(LevelHeader header)
+        {
+            Header = header;
+        }
+    }
+
+    public struct LevelHeader
+    {
+        public Point ScreenXY { get; set; }
     }
 }

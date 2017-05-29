@@ -21,6 +21,7 @@ namespace MonoTroid
         private EntityManager entityManager;
         private LevelManager levelManager;
         private ResolutionManager resManager;
+        private RenderTarget2D renderTarget;
 
         public Game1()
         {
@@ -38,6 +39,10 @@ namespace MonoTroid
         /// </summary>
         protected override void Initialize()
         {
+            // TODO: Need a matrix-based camera because this will NOT work for long
+            renderTarget = new RenderTarget2D(GraphicsDevice, 2560,
+                2240);
+
             resManager = new ResolutionManager(graphics);
             inputManager = new InputManager();
             resourceManager = new ResourceManager(Content);
@@ -83,6 +88,11 @@ namespace MonoTroid
             {
                 resManager.ChangeResolution(256, 224);
             }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.L))
+            {
+                graphics.ToggleFullScreen();
+            }
             
             inputManager.Update();
             entityManager.Update(gameTime);
@@ -95,10 +105,16 @@ namespace MonoTroid
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-            
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: resManager.ScaleMatrix);
+            GraphicsDevice.SetRenderTarget(renderTarget);
+            GraphicsDevice.Clear(Color.Black);
+            spriteBatch.Begin();
             entityManager.Draw(spriteBatch);
+            spriteBatch.End();
+
+            GraphicsDevice.SetRenderTarget(null);
+            GraphicsDevice.Clear(Color.Black);
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: resManager.ScaleMatrix);
+            spriteBatch.Draw(renderTarget, Vector2.Zero, entityManager.camera.ViewPlane, Color.White);
             spriteBatch.End();
             base.Draw(gameTime);
         }

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace MonoTroid
+namespace MonoTroid.Managers
 {
     /// <summary>
     /// Handles adding, updating, drawing and removing entities. The gateway through which all entities access the world, other managers and other entities.
@@ -21,6 +19,7 @@ namespace MonoTroid
         private readonly List<Keys> upKeys = new List<Keys>();
         private Viewport viewport;
         private LevelManager levelManager;
+        public Camera camera;
         public ResourceManager ResourceManager { get; private set; }
 
         public EntityManager(InputManager inputManager, ResourceManager resourceManager)
@@ -48,7 +47,12 @@ namespace MonoTroid
             samus.Initialise(this, new Vector2(50, 50));
             AddEntity(samus);
 
-            levelManager.LoadLevel("testLevel1");
+            levelManager.LoadLevel("testLevel2");
+            var levelBounds = new Vector2(levelManager.Level.Header.ScreenXY.X * 16 * 16,
+                levelManager.Level.Header.ScreenXY.Y * 14 * 16); // ewwwww
+
+            camera = new Camera(new Vector2(256, 224), levelBounds);
+            camera.TrackTarget(samus);
         }
 
         /// <summary>
@@ -82,6 +86,8 @@ namespace MonoTroid
 
             CheckTileCollisions();
             CheckCollisions();
+
+            camera.Update();
         }
 
         private void CheckTileCollisions()
