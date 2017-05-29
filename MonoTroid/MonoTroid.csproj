@@ -55,6 +55,7 @@
     <Compile Include="KeyUpEventArgs.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="LevelManager.cs" />
+    <Compile Include="Managers\ResolutionManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceManager.cs" />

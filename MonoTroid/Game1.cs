@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoTroid.Managers;
 
 namespace MonoTroid
 {
@@ -19,10 +20,13 @@ namespace MonoTroid
         private ResourceManager resourceManager;
         private EntityManager entityManager;
         private LevelManager levelManager;
+        private ResolutionManager resManager;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 256;
+            graphics.PreferredBackBufferHeight = 224;
             Content.RootDirectory = "Content";
         }
 
@@ -34,11 +38,7 @@ namespace MonoTroid
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            graphics.PreferredBackBufferWidth = 256;
-            graphics.PreferredBackBufferHeight = 224;
-            graphics.ApplyChanges();
-
+            resManager = new ResolutionManager(graphics);
             inputManager = new InputManager();
             resourceManager = new ResourceManager(Content);
             entityManager = new EntityManager(inputManager, resourceManager);
@@ -56,7 +56,6 @@ namespace MonoTroid
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             spriteBatch.CreateWhiteTexture();
-            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>
@@ -65,7 +64,7 @@ namespace MonoTroid
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+
         }
 
         /// <summary>
@@ -75,10 +74,16 @@ namespace MonoTroid
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            if (Keyboard.GetState().IsKeyDown(Keys.F))
+            {
+                resManager.ChangeResolution(1024, 896);
+            }
 
-            // TODO: Add your update logic here
+            if (Keyboard.GetState().IsKeyDown(Keys.G))
+            {
+                resManager.ChangeResolution(256, 224);
+            }
+            
             inputManager.Update();
             entityManager.Update(gameTime);
             base.Update(gameTime);
@@ -91,9 +96,8 @@ namespace MonoTroid
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-            spriteBatch.Begin();
+            
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: resManager.ScaleMatrix);
             entityManager.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
