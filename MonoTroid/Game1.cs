@@ -46,7 +46,7 @@ namespace MonoTroid
             resManager = new ResolutionManager(graphics);
             inputManager = new InputManager();
             resourceManager = new ResourceManager(Content);
-            entityManager = new EntityManager(inputManager, resourceManager);
+            entityManager = new EntityManager(inputManager, resourceManager, resManager);
             levelManager = new LevelManager(entityManager);
             entityManager.Initialise(GraphicsDevice.Viewport, levelManager);
             base.Initialize();
@@ -105,16 +105,9 @@ namespace MonoTroid
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.SetRenderTarget(renderTarget);
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin();
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: entityManager.camera.GetViewTransformMatrix());
             entityManager.Draw(spriteBatch);
-            spriteBatch.End();
-
-            GraphicsDevice.SetRenderTarget(null);
-            GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: resManager.ScaleMatrix);
-            spriteBatch.Draw(renderTarget, Vector2.Zero, entityManager.camera.ViewPlane, Color.White);
             spriteBatch.End();
             base.Draw(gameTime);
         }

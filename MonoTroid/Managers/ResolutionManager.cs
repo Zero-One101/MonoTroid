@@ -10,8 +10,9 @@ namespace MonoTroid.Managers
     public class ResolutionManager
     {
         private readonly GraphicsDeviceManager graphics;
-        private readonly Vector2 virtualResolution = new Vector2(256, 224);
         public Matrix ScaleMatrix { get; private set; }
+
+        public Vector2 VirtualResolution { get; } = new Vector2(256, 224);
 
         public ResolutionManager(GraphicsDeviceManager graphics)
         {
@@ -29,8 +30,8 @@ namespace MonoTroid.Managers
 
         private void UpdateScale()
         {
-            var widthScale = graphics.PreferredBackBufferWidth / virtualResolution.X;
-            var heightScale = graphics.PreferredBackBufferHeight / virtualResolution.Y;
+            var widthScale = graphics.PreferredBackBufferWidth / VirtualResolution.X;
+            var heightScale = graphics.PreferredBackBufferHeight / VirtualResolution.Y;
             var scaleFactor = new Vector3(widthScale, heightScale, 1);
             ScaleMatrix = Matrix.CreateScale(scaleFactor);
         }

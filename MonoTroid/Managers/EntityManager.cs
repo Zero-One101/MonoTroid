@@ -19,12 +19,14 @@ namespace MonoTroid.Managers
         private readonly List<Keys> upKeys = new List<Keys>();
         private Viewport viewport;
         private LevelManager levelManager;
+        private readonly ResolutionManager resManager;
         public Camera camera;
         public ResourceManager ResourceManager { get; private set; }
         public GameTime gameTime;
 
-        public EntityManager(InputManager inputManager, ResourceManager resourceManager)
+        public EntityManager(InputManager inputManager, ResourceManager resourceManager, ResolutionManager resManager)
         {
+            this.resManager = resManager;
             ResourceManager = resourceManager;
             inputManager.KeyDown += InputManager_KeyDown;
             inputManager.KeyUp += InputManager_KeyUp;
@@ -52,7 +54,7 @@ namespace MonoTroid.Managers
             var levelBounds = new Vector2(levelManager.Level.Header.ScreenXY.X * 16 * 16,
                 levelManager.Level.Header.ScreenXY.Y * 14 * 16); // ewwwww
 
-            camera = new Camera(new Vector2(256, 224), levelBounds);
+            camera = new Camera(resManager, new Vector2(256, 224), levelBounds);
             camera.TrackTarget(samus);
         }
 
