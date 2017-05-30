@@ -56,21 +56,25 @@ namespace MonoTroid
 
         /// <summary>
         /// The maximum speed the GameObject can move
+        /// Scaled by frame time
         /// </summary>
         public float maxMoveSpeed;
 
         /// <summary>
         /// How fast the GameObject will fall due to gravity
+        /// Scaled by frame time
         /// </summary>
-        public float Gravity { get; } = 0.1f;
+        public float Gravity { get; } = 6f;
 
         /// <summary>
         /// The maximum speed the GameObject can achieve when falling
+        /// Scaled by frame time
         /// </summary>
         protected float terminalVelocity;
 
         /// <summary>
         /// How strongly the GameObject can jump
+        /// Scaled by frame time
         /// </summary>
         public float jumpStrength;
 
@@ -124,13 +128,18 @@ namespace MonoTroid
                 : new Vector2(MoveSpeed.X, terminalVelocity);
         }
 
+        protected virtual void ApplyMovement(GameTime gameTime)
+        {
+            Position += MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
+
         /// <summary>
         /// On collision with a tile, attempts to move the GameObject out of the tile
         /// </summary>
         /// <param name="otherRect"></param>
         public virtual void ResolveTileCollision(Rectangle otherRect)
         {
-            var oldPos = Position - MoveSpeed;
+            var oldPos = Position - (MoveSpeed * (float) EntityManager.gameTime.ElapsedGameTime.TotalSeconds);
             var oldYHitRect = new Rectangle((int)oldPos.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
 
             if (oldYHitRect.Intersects(otherRect))

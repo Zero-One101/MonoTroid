@@ -21,6 +21,7 @@ namespace MonoTroid.Managers
         private LevelManager levelManager;
         public Camera camera;
         public ResourceManager ResourceManager { get; private set; }
+        public GameTime gameTime;
 
         public EntityManager(InputManager inputManager, ResourceManager resourceManager)
         {
@@ -70,6 +71,8 @@ namespace MonoTroid.Managers
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
+            this.gameTime = gameTime;
+
             entities.AddRange(entitiesToAdd);
             entitiesToAdd.Clear();
 

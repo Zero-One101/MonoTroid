@@ -22,11 +22,11 @@ namespace MonoTroid
             base.Initialise(entityManager, spawnPosition);
             entityManager.KeyDown += EntityManager_KeyDown;
             entityManager.KeyUp += EntityManager_KeyUp;
-            maxMoveSpeed = 3f;
-            terminalVelocity = 5f;
+            maxMoveSpeed = 180f;
+            terminalVelocity = 300f;
             frameSize = new Vector2(16, 43);
             HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
-            jumpStrength = -3f;
+            jumpStrength = -180f;
             Facing = EFacing.ELeft;
             State = new Spawning();
             State.Begin(this);
@@ -46,7 +46,8 @@ namespace MonoTroid
         {
             ApplyGravity();
             State.Update(this, gameTime);
-            Position += MoveSpeed;
+            // Position += MoveSpeed;
+            ApplyMovement(gameTime);
             HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
             ClearKeys();
         }
