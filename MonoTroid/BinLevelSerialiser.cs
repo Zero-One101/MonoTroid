@@ -27,10 +27,18 @@ namespace MonoTroid
             {
                 for (var x = 0; x < levelSize.X; x++)
                 {
-                    if (ReadByte() != 0x0)
+                    var tileByte = ReadByte();
+                    if (tileByte != 0x0)
                     {
                         var tile = new Tile();
+
                         tile.Initialise(entityManager, new Vector2(x * 16, y * 16));
+
+                        if (tileByte == 0x73)
+                        {
+                            tile.SetCollisionType(Tile.ECollisionType.ESlope);
+                        }
+
                         tileData[x, y] = tile;
                     }
                 }

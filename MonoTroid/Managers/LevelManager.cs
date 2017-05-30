@@ -48,7 +48,7 @@ namespace MonoTroid.Managers
                 if (tile == null) continue;
                 if (tile.HitRect.Intersects(entity.HitRect))
                 {
-                    entity.ResolveTileCollision(tile.HitRect);
+                    entity.ResolveTileCollision(tile.HitRect, tile.Collision);
                 }
             }
         }

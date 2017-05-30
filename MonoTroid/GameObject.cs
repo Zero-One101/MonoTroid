@@ -137,34 +137,54 @@ namespace MonoTroid
         /// On collision with a tile, attempts to move the GameObject out of the tile
         /// </summary>
         /// <param name="otherRect"></param>
-        public virtual void ResolveTileCollision(Rectangle otherRect)
+        /// <param name="collisionType"></param>
+        public virtual void ResolveTileCollision(Rectangle otherRect, Tile.ECollisionType collisionType)
         {
-            var oldPos = Position - (MoveSpeed * (float) EntityManager.gameTime.ElapsedGameTime.TotalSeconds);
-            var oldYHitRect = new Rectangle((int)oldPos.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
-
-            if (oldYHitRect.Intersects(otherRect))
+            if (collisionType == Tile.ECollisionType.ESolid)
             {
-                //Position.Y -= moveSpeed.Y;
-                Position = new Vector2(Position.X, oldPos.Y);
-                MoveSpeed = new Vector2(MoveSpeed.X, 0);
+                var oldPos = Position - (MoveSpeed * (float) EntityManager.gameTime.ElapsedGameTime.TotalSeconds);
+                var oldYHitRect = new Rectangle((int) oldPos.X, (int) Position.Y, (int) frameSize.X, (int) frameSize.Y);
 
-                // If we hit our head off something, we shouldn't be able to jump again
-                if (HitRect.Top < otherRect.Top)
+                if (oldYHitRect.Intersects(otherRect))
                 {
-                    hasJumped = false;
+                    //Position.Y -= moveSpeed.Y;
+                    Position = new Vector2(Position.X, oldPos.Y);
+                    MoveSpeed = new Vector2(MoveSpeed.X, 0);
+
+                    // If we hit our head off something, we shouldn't be able to jump again
+                    if (HitRect.Top < otherRect.Top)
+                    {
+                        hasJumped = false;
+                    }
                 }
+
+                var oldXHitRect = new Rectangle((int) Position.X, (int) oldPos.Y, (int) frameSize.X, (int) frameSize.Y);
+
+                if (oldXHitRect.Intersects(otherRect))
+                {
+                    //Position.X -= moveSpeed.X;
+                    Position = new Vector2(oldPos.X, Position.Y);
+                    MoveSpeed = new Vector2(0, MoveSpeed.Y);
+                }
+
+                HitRect = new Rectangle((int) Position.X, (int) Position.Y, (int) frameSize.X, (int) frameSize.Y);
             }
-
-            var oldXHitRect = new Rectangle((int)Position.X, (int)oldPos.Y, (int)frameSize.X, (int)frameSize.Y);
-
-            if (oldXHitRect.Intersects(otherRect))
+            else
             {
-                //Position.X -= moveSpeed.X;
-                Position = new Vector2(oldPos.X, Position.Y);
-                MoveSpeed = new Vector2(0, MoveSpeed.Y);
-            }
+                // SLOPE TIME
+                // If Samus is below the gradient line, nudge her on to it. Else, do nothing
+                // y = mx + c
+                // y = x + c
 
-            HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
+                //var newY = (HitRect.Right - otherRect.Left) + (otherRect.Y - frameSize.Y); // SOLUTION FOR LEFT SLOPE
+
+                if (HitRect.Right < otherRect.Right + 2)
+                {
+                    var newY = (otherRect.Bottom + (otherRect.X - HitRect.Right)) - frameSize.Y;
+                    Position = new Vector2(Position.X, newY);
+                }
+                MoveSpeed = new Vector2(MoveSpeed.X, 0);
+            }
         }
     }
 }
