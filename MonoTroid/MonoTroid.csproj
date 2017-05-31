@@ -57,6 +57,7 @@
     <Compile Include="Level.cs" />
     <Compile Include="Managers\LevelManager.cs" />
     <Compile Include="Managers\ResolutionManager.cs" />
+    <Compile Include="Polygon.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Managers\ResourceManager.cs" />
