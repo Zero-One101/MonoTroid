@@ -59,6 +59,7 @@ namespace MonoTroid
         public Polygon(List<Vector2> points)
         {
             this.points = points;
+            BuildEdges();
         }
 
         public void Offset(Vector2 v)
@@ -109,7 +110,7 @@ namespace MonoTroid
                 // Check if the poly projections are currently intersecting
                 if (IntervalDistance(minA, maxA, minB, maxB) > 0)
                 {
-                    result.Intersecting = true;
+                    result.Intersecting = false;
                 }
 
                 // Find if the polygons WILL intersect
@@ -129,7 +130,7 @@ namespace MonoTroid
                 var intervalDistance = IntervalDistance(minA, maxA, minB, maxB);
                 if (intervalDistance > 0)
                 {
-                    result.WillIntersect = true;
+                    result.WillIntersect = false;
                 }
 
                 // If the polygons are not intersecting and won't intersect, exit the loop
@@ -143,7 +144,7 @@ namespace MonoTroid
                     mtv = intervalDistance;
                     translationAxis = axis;
 
-                    var d = this.Centre - otherPoly.Centre;
+                    var d = Centre - otherPoly.Centre;
 
                     if (Vector2.Dot(d, translationAxis) < 0)
                     {

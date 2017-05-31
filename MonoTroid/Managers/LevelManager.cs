@@ -48,7 +48,7 @@ namespace MonoTroid.Managers
                 if (tile != null)
                 {
                     var hitResult = tile.Hit.CheckCollision(entity.Hit, entity.MoveSpeed);
-                    if (hitResult.Intersecting)
+                    if (hitResult.WillIntersect)
                     {
                         entity.ResolveTileCollision(hitResult.MinimumTranslationVector);
                     }

@@ -136,19 +136,20 @@ namespace MonoTroid
         /// <summary>
         /// On collision with a tile, attempts to move the GameObject out of the tile
         /// </summary>
-        /// <param name="otherRect"></param>
-        /// <param name="collisionType"></param>
+        /// <param name="mtv">The minimum translation vector required to resolve the collision</param>
         public virtual void ResolveTileCollision(Vector2 mtv)
         {
-            //MoveSpeed += mtv;
-            //var points = new List<Vector2>
-            //{
-            //    new Vector2(Position.X, Position.Y),
-            //    new Vector2(Position.X + frameSize.X, Position.Y),
-            //    new Vector2(Position.X + frameSize.X, Position.Y + frameSize.Y),
-            //    new Vector2(Position.X, Position.Y + frameSize.Y)
-            //};
-            //Hit = new Polygon(points);
+            mtv *= (float) EntityManager.gameTime.ElapsedGameTime.TotalSeconds;
+            MoveSpeed = mtv;
+            Position += MoveSpeed;
+            var points = new List<Vector2>
+            {
+                new Vector2(Position.X, Position.Y),
+                new Vector2(Position.X + frameSize.X, Position.Y),
+                new Vector2(Position.X + frameSize.X, Position.Y + frameSize.Y),
+                new Vector2(Position.X, Position.Y + frameSize.Y)
+            };
+            Hit = new Polygon(points);
         }
     }
 }
