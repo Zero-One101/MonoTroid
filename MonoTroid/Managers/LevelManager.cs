@@ -45,10 +45,13 @@ namespace MonoTroid.Managers
         {
             foreach (var tile in Level.Tiles)
             {
-                if (tile == null) continue;
-                if (tile.HitRect.Intersects(entity.HitRect))
+                if (tile != null)
                 {
-                    entity.ResolveTileCollision(tile.HitRect, tile.Collision);
+                    var hitResult = tile.Hit.CheckCollision(entity.Hit, entity.MoveSpeed);
+                    if (hitResult.Intersecting)
+                    {
+                        entity.ResolveTileCollision(hitResult.MinimumTranslationVector);
+                    }
                 }
             }
         }

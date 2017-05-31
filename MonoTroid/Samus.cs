@@ -25,7 +25,14 @@ namespace MonoTroid
             maxMoveSpeed = 180f;
             terminalVelocity = 300f;
             frameSize = new Vector2(16, 43);
-            HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
+            var points = new List<Vector2>
+            {
+                new Vector2(Position.X, Position.Y),
+                new Vector2(Position.X + frameSize.X, Position.Y),
+                new Vector2(Position.X + frameSize.X, Position.Y + frameSize.Y),
+                new Vector2(Position.X, Position.Y + frameSize.Y)
+            };
+            Hit = new Polygon(points);
             jumpStrength = -180f;
             Facing = EFacing.ELeft;
             State = new Spawning();
@@ -48,7 +55,14 @@ namespace MonoTroid
             State.Update(this, gameTime);
             // Position += MoveSpeed;
             ApplyMovement(gameTime);
-            HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
+            var points = new List<Vector2>
+            {
+                new Vector2(Position.X, Position.Y),
+                new Vector2(Position.X + frameSize.X, Position.Y),
+                new Vector2(Position.X + frameSize.X, Position.Y + frameSize.Y),
+                new Vector2(Position.X, Position.Y + frameSize.Y)
+            };
+            Hit = new Polygon(points);
             ClearKeys();
         }
 
@@ -64,7 +78,7 @@ namespace MonoTroid
             //spriteBatch.Draw(texture, position, Color.White);
             Animation.Draw(spriteBatch, Position);
 
-            spriteBatch.DrawRectangle(HitRect, Color.Green);
+            spriteBatch.DrawRectangle(new Rectangle(Position.ToPoint(), frameSize.ToPoint()), Color.Green);
         }
 
         public override void Collide(GameObject other)

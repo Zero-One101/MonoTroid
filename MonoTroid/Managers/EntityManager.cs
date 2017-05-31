@@ -105,15 +105,7 @@ namespace MonoTroid.Managers
 
         private void CheckCollisions()
         {
-            // Godawful O(n^2) checking. Will be ripped out later
-            foreach (var first in entities)
-            {
-                foreach (var second in entities.Where(second => first.HitRect.Intersects(second.HitRect)))
-                {
-                    first.Collide(second);
-                    second.Collide(first);
-                }
-            }
+            // TODO: Implement when non-tile objects are implemented
         }
 
         /// <summary>

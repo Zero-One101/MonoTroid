@@ -56,6 +56,11 @@ namespace MonoTroid
             }
         }
 
+        public Polygon(List<Vector2> points)
+        {
+            this.points = points;
+        }
+
         public void Offset(Vector2 v)
         {
             Offset(v.X, v.Y);

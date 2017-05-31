@@ -32,7 +32,7 @@ namespace MonoTroid
         /// <summary>
         /// The bounding hitbox for the GameObject
         /// </summary>
-        public Rectangle HitRect { get; protected set; }
+        public Polygon Hit { get; protected set; }
 
         /// <summary>
         /// The position of the GameObject
@@ -138,53 +138,17 @@ namespace MonoTroid
         /// </summary>
         /// <param name="otherRect"></param>
         /// <param name="collisionType"></param>
-        public virtual void ResolveTileCollision(Rectangle otherRect, Tile.ECollisionType collisionType)
+        public virtual void ResolveTileCollision(Vector2 mtv)
         {
-            if (collisionType == Tile.ECollisionType.ESolid)
-            {
-                var oldPos = Position - (MoveSpeed * (float) EntityManager.gameTime.ElapsedGameTime.TotalSeconds);
-                var oldYHitRect = new Rectangle((int) oldPos.X, (int) Position.Y, (int) frameSize.X, (int) frameSize.Y);
-
-                if (oldYHitRect.Intersects(otherRect))
-                {
-                    //Position.Y -= moveSpeed.Y;
-                    Position = new Vector2(Position.X, oldPos.Y);
-                    MoveSpeed = new Vector2(MoveSpeed.X, 0);
-
-                    // If we hit our head off something, we shouldn't be able to jump again
-                    if (HitRect.Top < otherRect.Top)
-                    {
-                        hasJumped = false;
-                    }
-                }
-
-                var oldXHitRect = new Rectangle((int) Position.X, (int) oldPos.Y, (int) frameSize.X, (int) frameSize.Y);
-
-                if (oldXHitRect.Intersects(otherRect))
-                {
-                    //Position.X -= moveSpeed.X;
-                    Position = new Vector2(oldPos.X, Position.Y);
-                    MoveSpeed = new Vector2(0, MoveSpeed.Y);
-                }
-
-                HitRect = new Rectangle((int) Position.X, (int) Position.Y, (int) frameSize.X, (int) frameSize.Y);
-            }
-            else
-            {
-                // SLOPE TIME
-                // If Samus is below the gradient line, nudge her on to it. Else, do nothing
-                // y = mx + c
-                // y = x + c
-
-                //var newY = (HitRect.Right - otherRect.Left) + (otherRect.Y - frameSize.Y); // SOLUTION FOR LEFT SLOPE
-
-                if (HitRect.Right < otherRect.Right + 2)
-                {
-                    var newY = (otherRect.Bottom + (otherRect.X - HitRect.Right)) - frameSize.Y;
-                    Position = new Vector2(Position.X, newY);
-                }
-                MoveSpeed = new Vector2(MoveSpeed.X, 0);
-            }
+            //MoveSpeed += mtv;
+            //var points = new List<Vector2>
+            //{
+            //    new Vector2(Position.X, Position.Y),
+            //    new Vector2(Position.X + frameSize.X, Position.Y),
+            //    new Vector2(Position.X + frameSize.X, Position.Y + frameSize.Y),
+            //    new Vector2(Position.X, Position.Y + frameSize.Y)
+            //};
+            //Hit = new Polygon(points);
         }
     }
 }

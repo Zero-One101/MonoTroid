@@ -22,7 +22,15 @@ namespace MonoTroid
         {
             base.Initialise(entityManager, spawnPosition);
             frameSize = new Vector2(16, 16);
-            HitRect = new Rectangle((int)Position.X, (int)Position.Y, (int)frameSize.X, (int)frameSize.Y);
+            var points = new List<Vector2>()
+            {
+                new Vector2(Position.X, Position.Y),
+                new Vector2(Position.X + frameSize.X, Position.Y),
+                new Vector2(Position.X + frameSize.X, Position.Y + frameSize.Y),
+                new Vector2(Position.X,
+                    Position.Y + frameSize.Y)
+            };
+            Hit = new Polygon(points);
             Collision = ECollisionType.ESolid;
             texture = entityManager.ResourceManager.LoadTexture("RBTile");
         }
@@ -45,6 +53,7 @@ namespace MonoTroid
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, Position, Color.White);
+            spriteBatch.DrawRectangle(new Rectangle(Position.ToPoint(), frameSize.ToPoint()), Color.Red);
         }
 
         public override void Collide(GameObject other)
