@@ -47,10 +47,10 @@ namespace MonoTroid.Managers
             {
                 if (tile != null)
                 {
-                    var hitResult = tile.Hit.CheckCollision(entity.Hit, entity.MoveSpeed);
+                    var hitResult = tile.Hit.CheckCollision(entity.Hit, Vector2.Zero);
                     if (hitResult.WillIntersect)
                     {
-                        entity.ResolveTileCollision(hitResult.MinimumTranslationVector);
+                        entity.ResolveTileCollision(tile.Hit, hitResult.MinimumTranslationVector, tile.Collision);
                     }
                 }
             }

@@ -13,7 +13,10 @@ namespace MonoTroid
         public enum ECollisionType
         {
             ESolid,
-            ESlope
+            ESlopeBR,
+            ESlopeBL,
+            ESlopeUL,
+            ESlopeUR
         }
 
         public ECollisionType Collision { get; set; }
@@ -44,16 +47,23 @@ namespace MonoTroid
         {
             Collision = collision;
 
-            if (collision == ECollisionType.ESlope)
+            if (collision == ECollisionType.ESlopeBR)
             {
                 texture = EntityManager.ResourceManager.LoadTexture("RBSlope");
+                var points = new List<Vector2>()
+                {
+                    new Vector2(Position.X + frameSize.X, Position.Y),
+                    new Vector2(Position.X + frameSize.X, Position.Y + frameSize.Y),
+                    new Vector2(Position.X, Position.Y + frameSize.Y)
+                };
+                Hit = new Polygon(points);
             }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, Position, Color.White);
-            spriteBatch.DrawRectangle(new Rectangle(Position.ToPoint(), frameSize.ToPoint()), Color.Red);
+            spriteBatch.DrawPolygon(Hit, Color.Red);
         }
 
         public override void Collide(GameObject other)

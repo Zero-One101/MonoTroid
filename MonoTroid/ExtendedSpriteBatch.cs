@@ -63,5 +63,26 @@ namespace MonoTroid
         {
             spriteBatch.Draw(WhiteTexture, rectangle, colour);
         }
+
+        public static void DrawPolygon(this SpriteBatch spriteBatch, Polygon polygon, Color colour)
+        {
+            Vector2 start;
+            Vector2 end;
+
+            for (var i = 0; i < polygon.Points.Count; i++)
+            {
+                start = polygon.Points[i];
+                if (i == polygon.Points.Count - 1)
+                {
+                    end = polygon.Points[0];
+                }
+                else
+                {
+                    end = polygon.Points[i + 1];
+                }
+
+                spriteBatch.DrawLine(start, end, colour);
+            }
+        }
     }
 }

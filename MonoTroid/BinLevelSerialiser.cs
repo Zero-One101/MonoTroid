@@ -36,7 +36,7 @@ namespace MonoTroid
 
                         if (tileByte == 0x73)
                         {
-                            tile.SetCollisionType(Tile.ECollisionType.ESlope);
+                            tile.SetCollisionType(Tile.ECollisionType.ESlopeBR);
                         }
 
                         tileData[x, y] = tile;

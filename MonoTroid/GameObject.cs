@@ -133,16 +133,9 @@ namespace MonoTroid
             Position += MoveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
-        /// <summary>
-        /// On collision with a tile, attempts to move the GameObject out of the tile
-        /// </summary>
-        /// <param name="mtv">The minimum translation vector required to resolve the collision</param>
-        public virtual void ResolveTileCollision(Vector2 mtv)
+        protected virtual void GenerateHitBox()
         {
-            mtv *= (float) EntityManager.gameTime.ElapsedGameTime.TotalSeconds;
-            MoveSpeed = mtv;
-            Position += MoveSpeed;
-            var points = new List<Vector2>
+            var points = new List<Vector2>()
             {
                 new Vector2(Position.X, Position.Y),
                 new Vector2(Position.X + frameSize.X, Position.Y),
@@ -150,6 +143,74 @@ namespace MonoTroid
                 new Vector2(Position.X, Position.Y + frameSize.Y)
             };
             Hit = new Polygon(points);
+        }
+
+        /// <summary>
+        /// On collision with a tile, attempts to move the GameObject out of the tile
+        /// </summary>
+        /// <param name="otherPoly"></param>
+        /// <param name="mtv">The minimum translation vector required to resolve the collision</param>
+        public virtual void ResolveTileCollision(Polygon otherPoly, Vector2 mtv, Tile.ECollisionType collisionType)
+        {
+            if (collisionType == Tile.ECollisionType.ESolid)
+            {
+                var oldPos = Position - (MoveSpeed * (float) EntityManager.gameTime.ElapsedGameTime.TotalSeconds);
+                var points = new List<Vector2>()
+                {
+                    new Vector2(oldPos.X, Position.Y),
+                    new Vector2(oldPos.X + frameSize.X, Position.Y),
+                    new Vector2(oldPos.X + frameSize.X, Position.Y + frameSize.Y),
+                    new Vector2(oldPos.X, Position.Y + frameSize.Y)
+                };
+                var oldYPoly = new Polygon(points);
+
+                var hitResult = otherPoly.CheckCollision(oldYPoly, Vector2.Zero);
+                if (hitResult.WillIntersect)
+                {
+                    Position = new Vector2(Position.X, oldPos.Y);
+                    MoveSpeed = new Vector2(MoveSpeed.X, 0);
+
+                    if (Hit.Points[0].Y < otherPoly.Points[0].Y)
+                    {
+                        hasJumped = false;
+                    }
+                }
+
+                points = new List<Vector2>()
+                {
+                    new Vector2(Position.X, oldPos.Y),
+                    new Vector2(Position.X + frameSize.X, oldPos.Y),
+                    new Vector2(Position.X + frameSize.X, oldPos.Y + frameSize.Y),
+                    new Vector2(Position.X, oldPos.Y + frameSize.Y)
+                };
+                var oldXPoly = new Polygon(points);
+
+                hitResult = otherPoly.CheckCollision(oldXPoly, Vector2.Zero);
+                if (hitResult.WillIntersect)
+                {
+                    Position = new Vector2(oldPos.X, Position.Y);
+                    MoveSpeed = new Vector2(0, MoveSpeed.Y);
+                }
+
+                GenerateHitBox();
+            }
+            else
+            {
+                // Assume slope
+                if (MoveSpeed.X != 0)
+                {
+                    var direction = MoveSpeed.X > 0 ? 1 : -1;
+                    Position = new Vector2(Position.X + direction, Position.Y - 1);
+                    GenerateHitBox();
+                }
+                else
+                {
+                    var oldPos = Position - (MoveSpeed * (float) EntityManager.gameTime.ElapsedGameTime.TotalSeconds);
+                    Position = oldPos;
+                    MoveSpeed = Vector2.Zero;
+                    GenerateHitBox();
+                }
+            }
         }
     }
 }

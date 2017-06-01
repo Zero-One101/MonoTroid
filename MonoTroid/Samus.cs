@@ -24,7 +24,7 @@ namespace MonoTroid
             entityManager.KeyUp += EntityManager_KeyUp;
             maxMoveSpeed = 180f;
             terminalVelocity = 300f;
-            frameSize = new Vector2(16, 43);
+            frameSize = new Vector2(14, 43);
             var points = new List<Vector2>
             {
                 new Vector2(Position.X, Position.Y),
