@@ -41,19 +41,7 @@ namespace MonoTroid
 
         public Vector2 Centre
         {
-            get
-            {
-                float totalX = 0;
-                float totalY = 0;
-
-                for (var i = 0; i < points.Count; i++)
-                {
-                    totalX += points[i].X;
-                    totalY += points[i].Y;
-                }
-
-                return new Vector2(totalX / points.Count, totalY / points.Count);
-            }
+            get { return points.Aggregate((p1, p2) => p1 + p2) / points.Count; }
         }
 
         public Polygon(List<Vector2> points)
