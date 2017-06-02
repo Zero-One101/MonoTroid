@@ -150,17 +150,19 @@ namespace MonoTroid
         /// <param name="mtv">The minimum translation vector required to resolve the collision</param>
         public virtual void ResolveTileCollision(Polygon otherPoly, Vector2 mtv, Tile.ECollisionType collisionType)
         {
-            Position -= mtv;
-            if (mtv.Y != 0)
+            var translation = mtv;
+            if (mtv.Y > 0)
             {
+                if (Math.Abs(mtv.X) == Math.Abs(mtv.Y))
+                {
+                    // Prevents sliding on a 45 degree slope
+                    // Position = new Vector2(Position.X + mtv.X, Position.Y);
+                    translation = new Vector2(0, mtv.Y);
+                }
                 MoveSpeed = new Vector2(MoveSpeed.X, 0);
                 hasJumped = false;
             }
-
-            if (mtv.X > 0)
-            {
-                MoveSpeed = new Vector2(0, MoveSpeed.Y);
-            }
+            Position -= translation;
             GenerateHitBox();
         }
     }
