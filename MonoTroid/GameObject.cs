@@ -148,7 +148,7 @@ namespace MonoTroid
         /// </summary>
         /// <param name="otherPoly"></param>
         /// <param name="mtv">The minimum translation vector required to resolve the collision</param>
-        public virtual void ResolveTileCollision(Polygon otherPoly, Vector2 mtv, Tile.ECollisionType collisionType)
+        public virtual void ResolveTileCollision(Polygon otherPoly, Vector2 mtv)
         {
             var translation = mtv;
             if (mtv.Y > 0)

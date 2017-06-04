@@ -77,8 +77,8 @@ namespace MonoTroid
             //spriteBatch.DrawFilledRectangle(new Rectangle((int)position.X, (int)position.Y, (int)frameSize.X, (int)frameSize.Y), Color.Red);
             //spriteBatch.Draw(texture, position, Color.White);
             Animation.Draw(spriteBatch, Position);
-
-            spriteBatch.DrawRectangle(new Rectangle(Position.ToPoint(), frameSize.ToPoint()), Color.Green);
+            
+            spriteBatch.DrawPolygon(Hit, Color.Green);
         }
 
         public override void Collide(GameObject other)

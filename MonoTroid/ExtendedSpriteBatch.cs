@@ -64,6 +64,12 @@ namespace MonoTroid
             spriteBatch.Draw(WhiteTexture, rectangle, colour);
         }
 
+        /// <summary>
+        /// Draws the outline of a polygon to the screen
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="polygon">The polygon to be drawn</param>
+        /// <param name="colour">The draw colour</param>
         public static void DrawPolygon(this SpriteBatch spriteBatch, Polygon polygon, Color colour)
         {
             Vector2 start;
@@ -72,14 +78,9 @@ namespace MonoTroid
             for (var i = 0; i < polygon.Points.Count; i++)
             {
                 start = polygon.Points[i];
-                if (i == polygon.Points.Count - 1)
-                {
-                    end = polygon.Points[0];
-                }
-                else
-                {
-                    end = polygon.Points[i + 1];
-                }
+                end = i == polygon.Points.Count - 1
+                    ? polygon.Points[0] 
+                    : polygon.Points[i + 1];
 
                 spriteBatch.DrawLine(start, end, colour);
             }

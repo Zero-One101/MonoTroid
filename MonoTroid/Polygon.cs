@@ -18,22 +18,15 @@ namespace MonoTroid
 
         public void BuildEdges()
         {
-            Vector2 p1;
-            Vector2 p2;
             edges.Clear();
 
             for (var i = 0; i < points.Count; i++)
             {
-                p1 = points[i];
+                var p1 = points[i];
 
-                if (i + 1 >= points.Count)
-                {
-                    p2 = points[0];
-                }
-                else
-                {
-                    p2 = points[i + 1];
-                }
+                var p2 = i + 1 >= points.Count
+                    ? points[0]
+                    : points[i + 1];
 
                 edges.Add(p2 - p1);
             }
@@ -68,8 +61,7 @@ namespace MonoTroid
         {
             var result = new PolyCollisionResult
             {
-                Intersecting = true,
-                WillIntersect = true
+                Intersecting = true
             };
 
             var edgeCountA = edges.Count;
@@ -96,33 +88,14 @@ namespace MonoTroid
                 ProjectPolygon(axis, otherPoly, ref minB, ref maxB);
 
                 // Check if the poly projections are currently intersecting
-                if (IntervalDistance(minA, maxA, minB, maxB) > 0)
+                var intervalDistance = IntervalDistance(minA, maxA, minB, maxB);
+                if (intervalDistance >= 0)
                 {
                     result.Intersecting = false;
                 }
 
-                // Find if the polygons WILL intersect
-                // Project the velocity on the current axis
-                var velProjection = Vector2.Dot(axis, velocity);
-
-                // Get the projection of this during the movement
-                if (velProjection < 0)
-                {
-                    minA += velProjection;
-                }
-                else
-                {
-                    maxA += velProjection;
-                }
-
-                var intervalDistance = IntervalDistance(minA, maxA, minB, maxB);
-                if (intervalDistance > 0)
-                {
-                    result.WillIntersect = false;
-                }
-
                 // If the polygons are not intersecting and won't intersect, exit the loop
-                if (!result.Intersecting && !result.WillIntersect) break;
+                if (!result.Intersecting) break;
 
                 // Check if the current interval distance is the minimum. If so, store the interval
                 // and the current distance. This will be used to calculate the MTV
@@ -142,7 +115,7 @@ namespace MonoTroid
             }
 
             // The MTV can be used to push the polys apart
-            if (result.WillIntersect)
+            if (result.Intersecting)
             {
                 result.MinimumTranslationVector = translationAxis * mtv;
             }
@@ -189,7 +162,6 @@ namespace MonoTroid
 
     public struct PolyCollisionResult
     {
-        public bool WillIntersect;
         public bool Intersecting;
 
         /// <summary>
